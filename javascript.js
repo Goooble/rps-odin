@@ -5,7 +5,7 @@ function getComputerChoice() {
 
 //GET human choice
 function getHumanChoice() {
-  return prompt("Enter your weapon", "here");
+  return prompt("Enter your weapon", "rock");
 }
 
 //string to number converter
@@ -55,9 +55,11 @@ function playRound(humanChoice, computerChoice) {
   //paper = 2
   //scissors = 3;
   //three cases: rock and paper(3), paper and scissors(5), rock and scissors(4)
-  if(humanChoice === computerChoice){
-    return "Its a Draw!";
+  if (humanChoice === computerChoice) {
+    console.log("Its a Draw!");
+    return;
   }
+  roundCounter++;
   switch (humanChoice + computerChoice) {
     case 3:
     case 5: //pass the choices to a greatness checker
@@ -69,29 +71,46 @@ function playRound(humanChoice, computerChoice) {
       break;
   }
   //  Compute winner
-  return winner
-    ? `You win! ${numToString(humanChoice)} beats ${numToString(
+  if (winner) {
+    humanScore++;
+    console.log(
+      `You win! ${numToString(humanChoice)} beats ${numToString(
         computerChoice
       )}!`
-    : `You lose! ${numToString(computerChoice)} beats ${numToString(
+    );
+  } else {
+    computerScore++;
+    console.log(
+      `You lose! ${numToString(computerChoice)} beats ${numToString(
         humanChoice
-      )}!`;
+      )}!`
+    );
+  }
+
   //if true = human wins and false computer wins
 }
+//to play a game
+function playGame() {
+  if (roundCounter <= 5) {
+    console.log(`Round: ${roundCounter}`);
+    playRound(stringToNum(getHumanChoice().toLowerCase()), getComputerChoice());
+    console.log(`Your score: ${humanScore}`);
+    console.log(`Computer score: ${computerScore}`);
+    playGame();
+  } else {
+    humanScore > computerScore
+      ? console.log("You win the game, congratulations!")
+      : console.log("You lose the game, better luck next time!");
+  }
+}
 ////////////////// MAINNNNN
-
-
-
 
 //score variables
 let humanScore = 0;
 let computerScore = 0;
+let roundCounter = 1;
 
-console.log(playRound(
-  stringToNum(getHumanChoice().toLowerCase()),
-  getComputerChoice()
-));
-
+playGame();
 
 /*
     convert humanChoice to the corresponding number
