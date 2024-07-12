@@ -48,7 +48,9 @@ function getGreater(a, b) {
 
 //one round
 function playRound(e) {
+  roundCounter++;
   body.appendChild(result);
+  body.appendChild(roundContainer);
   body.appendChild(humanScoreContainer);
   body.appendChild(computerScoreContainer);
   let humanChoice = stringToNum(e.target.textContent.toLowerCase());
@@ -65,7 +67,7 @@ function playRound(e) {
     displayScore();
     return;
   }
-  roundCounter++;
+  
   switch (humanChoice + computerChoice) {
     case 3:
     case 5: //pass the choices to a greatness checker
@@ -88,12 +90,12 @@ function playRound(e) {
 
 
 
-
   //if true = human wins and false computer wins
 }
 
 //display score
 function displayScore(){
+  roundContainer.textContent = `round: ${roundCounter}`;
   humanScoreContainer.textContent = `Your score = ${humanScore}`;
   computerScoreContainer.textContent = `Computer score = ${computerScore}`;
   if(humanScore === 5 || computerScore === 5){
@@ -138,7 +140,7 @@ const result = document.createElement("div");
 const humanScoreContainer = document.createElement("div");
 const computerScoreContainer = document.createElement("div");
 const winnerContainer = document.createElement("div");
-
+const roundContainer = document.createElement('div');
 
 
 
@@ -156,7 +158,7 @@ scissor.addEventListener("click", playRound);
 //score variables
 let humanScore = 0;
 let computerScore = 0;
-let roundCounter = 1;
+let roundCounter = 0;
 
 
 // playGame();
