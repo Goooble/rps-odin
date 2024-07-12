@@ -59,6 +59,7 @@ function playRound(e) {
   //three cases: rock and paper(3), paper and scissors(5), rock and scissors(4)
   if (humanChoice === computerChoice) {
     result.textContent = 'Its a Draw!';
+    displayScore();
     return;
   }
   roundCounter++;
@@ -80,12 +81,20 @@ function playRound(e) {
     computerScore++;
     result.textContent = `You lose! ${numToString(computerChoice)} beats ${numToString(humanChoice)}!`;
   }
+  displayScore();
 
-  body.appendChild(result);
+
 
 
   //if true = human wins and false computer wins
 }
+
+//display score
+function displayScore(){
+  displayHumanScore.textContent = `Your score = ${humanScore}`;
+  displayComputerScore.textContent = `Computer score = ${computerScore}`;
+}
+
 //to play a game
 /*function playGame() {
   if (roundCounter <= 5) {
@@ -103,18 +112,29 @@ function playRound(e) {
 
 ////////////////// MAINNNNN
 
+
+
+//result display setup
+const body = document.querySelector("body");
+const result = document.createElement("div");
+const displayHumanScore = document.createElement("div");
+const displayComputerScore = document.createElement("div");
+body.appendChild(result);
+body.appendChild(displayHumanScore);
+body.appendChild(displayComputerScore);
+
+
+
+
 //event listeners
 const rock = document.querySelector(".rock");
 const paper = document.querySelector(".paper");
 const scissor = document.querySelector(".scissor");
-
 rock.addEventListener("click", playRound);
 paper.addEventListener("click", playRound);
 scissor.addEventListener("click", playRound);
 
-//result display
-const body = document.querySelector("body");
-const result = document.createElement("div");
+
 
 //score variables
 let humanScore = 0;
@@ -140,3 +160,10 @@ let roundCounter = 1;
       if computerChoice = 1, computer wins
       else human wins
   */
+/*
+  learnings:
+    -append from bottom up, children first and then parent in the order of code
+    -lets say theres a div, and you have appended a few nodes to it but if you then add a text node to the parent div
+     then the appended nodes wont get appended 
+    -do not forget defer
+*/
