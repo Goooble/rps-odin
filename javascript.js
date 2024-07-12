@@ -47,7 +47,9 @@ function getGreater(a, b) {
 }
 
 //one round
-function playRound(humanChoice, computerChoice) {
+function playRound(e) {
+  let humanChoice = stringToNum(e.target.textContent.toLowerCase());
+  let computerChoice = getComputerChoice();
   console.log(`human: ${numToString(humanChoice)}`);
   console.log(`computer: ${numToString(computerChoice)}`);
   let winner;
@@ -56,7 +58,7 @@ function playRound(humanChoice, computerChoice) {
   //scissors = 3;
   //three cases: rock and paper(3), paper and scissors(5), rock and scissors(4)
   if (humanChoice === computerChoice) {
-    console.log("Its a Draw!");
+    result.textContent = 'Its a Draw!';
     return;
   }
   roundCounter++;
@@ -73,24 +75,19 @@ function playRound(humanChoice, computerChoice) {
   //  Compute winner
   if (winner) {
     humanScore++;
-    console.log(
-      `You win! ${numToString(humanChoice)} beats ${numToString(
-        computerChoice
-      )}!`
-    );
+    result.textContent = `You win! ${numToString(humanChoice)} beats ${numToString(computerChoice)}!`;
   } else {
     computerScore++;
-    console.log(
-      `You lose! ${numToString(computerChoice)} beats ${numToString(
-        humanChoice
-      )}!`
-    );
+    result.textContent = `You lose! ${numToString(computerChoice)} beats ${numToString(humanChoice)}!`;
   }
+
+  body.appendChild(result);
+
 
   //if true = human wins and false computer wins
 }
 //to play a game
-function playGame() {
+/*function playGame() {
   if (roundCounter <= 5) {
     console.log(`Round: ${roundCounter}`);
     playRound(stringToNum(getHumanChoice().toLowerCase()), getComputerChoice());
@@ -102,15 +99,29 @@ function playGame() {
       ? console.log("You win the game, congratulations!")
       : console.log("You lose the game, better luck next time!");
   }
-}
+}*/
+
 ////////////////// MAINNNNN
+
+//event listeners
+const rock = document.querySelector(".rock");
+const paper = document.querySelector(".paper");
+const scissor = document.querySelector(".scissor");
+
+rock.addEventListener("click", playRound);
+paper.addEventListener("click", playRound);
+scissor.addEventListener("click", playRound);
+
+//result display
+const body = document.querySelector("body");
+const result = document.createElement("div");
 
 //score variables
 let humanScore = 0;
 let computerScore = 0;
 let roundCounter = 1;
 
-playGame();
+// playGame();
 
 /*
     convert humanChoice to the corresponding number
