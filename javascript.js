@@ -3,11 +3,6 @@ function getComputerChoice() {
   return Math.floor(Math.random() * 3) + 1;
 }
 
-//GET human choice
-function getHumanChoice() {
-  return prompt("Enter your weapon", "rock");
-}
-
 //string to number converter
 function stringToNum(string) {
   switch (string) {
@@ -55,8 +50,6 @@ function playRound(e) {
   body.appendChild(computerScoreContainer);
   let humanChoice = stringToNum(e.target.textContent.toLowerCase());
   let computerChoice = getComputerChoice();
-  console.log(`human: ${numToString(humanChoice)}`);
-  console.log(`computer: ${numToString(computerChoice)}`);
   let winner;
   //rock = 1
   //paper = 2
@@ -87,13 +80,8 @@ function playRound(e) {
     result.textContent = `You lose! ${numToString(computerChoice)} beats ${numToString(humanChoice)}!`;
   }
   displayScore();
-
-
-
-  //if true = human wins and false computer wins
 }
 
-//display score
 function displayScore(){
   roundContainer.textContent = `round: ${roundCounter}`;
   humanScoreContainer.textContent = `Your score = ${humanScore}`;
@@ -114,23 +102,6 @@ function displayWinner(){
   paper.disabled = true;
   scissor.disabled = true;
 }
-
-//to play a game
-/*function playGame() {
-  if (roundCounter <= 5) {
-    console.log(`Round: ${roundCounter}`);
-    playRound(stringToNum(getHumanChoice().toLowerCase()), getComputerChoice());
-    console.log(`Your score: ${humanScore}`);
-    console.log(`Computer score: ${computerScore}`);
-    playGame();
-  } else {
-    humanScore > computerScore
-      ? console.log("You win the game, congratulations!")
-      : console.log("You lose the game, better luck next time!");
-  }
-}*/
-
-////////////////// MAINNNNN
 
 
 
@@ -160,9 +131,7 @@ let humanScore = 0;
 let computerScore = 0;
 let roundCounter = 0;
 
-
-// playGame();
-
+//notes
 /*
     convert humanChoice to the corresponding number
     Problem: Deciding the winner-so i need to compare the humanchoice to the computer choice and calculate who the winner is 
