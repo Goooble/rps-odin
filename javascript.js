@@ -48,6 +48,9 @@ function getGreater(a, b) {
 
 //one round
 function playRound(e) {
+  body.appendChild(result);
+  body.appendChild(humanScoreContainer);
+  body.appendChild(computerScoreContainer);
   let humanChoice = stringToNum(e.target.textContent.toLowerCase());
   let computerChoice = getComputerChoice();
   console.log(`human: ${numToString(humanChoice)}`);
@@ -91,8 +94,23 @@ function playRound(e) {
 
 //display score
 function displayScore(){
-  displayHumanScore.textContent = `Your score = ${humanScore}`;
-  displayComputerScore.textContent = `Computer score = ${computerScore}`;
+  humanScoreContainer.textContent = `Your score = ${humanScore}`;
+  computerScoreContainer.textContent = `Computer score = ${computerScore}`;
+  if(humanScore === 5 || computerScore === 5){
+    displayWinner();
+  }
+}
+function displayWinner(){
+  if(humanScore === 5){
+    winnerContainer.textContent = "YOU WIN THE GAME!" ;
+  }else{
+    winnerContainer.textContent = "YOU LOSE THE GAME";
+  }
+  body.appendChild(winnerContainer);
+  body.removeChild(result);
+  rock.disabled = true;
+  paper.disabled = true;
+  scissor.disabled = true;
 }
 
 //to play a game
@@ -117,11 +135,10 @@ function displayScore(){
 //result display setup
 const body = document.querySelector("body");
 const result = document.createElement("div");
-const displayHumanScore = document.createElement("div");
-const displayComputerScore = document.createElement("div");
-body.appendChild(result);
-body.appendChild(displayHumanScore);
-body.appendChild(displayComputerScore);
+const humanScoreContainer = document.createElement("div");
+const computerScoreContainer = document.createElement("div");
+const winnerContainer = document.createElement("div");
+
 
 
 
@@ -140,6 +157,7 @@ scissor.addEventListener("click", playRound);
 let humanScore = 0;
 let computerScore = 0;
 let roundCounter = 1;
+
 
 // playGame();
 
